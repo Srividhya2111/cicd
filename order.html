@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Food - Foodies Delight</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #000000;
+      padding: 1rem;
+      color: white;
+      text-align: center;
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu li {
+      margin: 0 15px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .menu a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content */
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #000000;
+    }
+    .order-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .food-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+    }
+    .food-item img {
+      width: 100%;
+      border-radius: 10px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .food-item h3 {
+      color: #333;
+      font-size: 1.2rem;
+      margin-top: 15px;
+    }
+    .food-item p {
+      color: #777;
+      font-size: 1rem;
+      margin: 5px 0;
+    }
+    .food-item label {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+    .food-item input {
+      width: 50px;
+      padding: 5px;
+      margin-top: 5px;
+      font-size: 1rem;
+    }
+    .food-item button {
+      background-color: #000000;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .food-item button:hover {
+      background-color: #333333;
+    }
+
+    /* Billing and Order Summary Boxes */
+    .order-summary-box, .billing-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: 10px;
+    }
+
+    /* Billing Section */
+    .billing-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .billing-box h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .billing-box p {
+      font-size: 1.2rem;
+      margin: 5px 0;
+    }
+
+    /* Order Summary Section */
+    .order-summary-box {
+      margin-top: 30px;
+      text-align: left;
+      padding: 20px;
+      background: #f1f1f1;
+      border-radius: 10px;
+      width: 80%;
+      margin: auto;
+    }
+    .order-summary-box div {
+      margin-bottom: 10px;
+    }
+    .order-summary-box button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .order-summary-box button:hover {
+      background-color: #45a049;
+    }
+
+    /* Form Validation */
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    /* Popup for Confirmation */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .popup button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #000000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .popup button:hover {
+      background-color: #333333;
+    }
+	#placeOrderButton {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 15px 30px; /* Increased padding for a bigger button */
+  font-size: 1.5rem; /* Bigger font size */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-top: 20px; /* Space above the button */
+}
+
+#placeOrderButton:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <img src="https://cdn.vectorstock.com/i/1000v/66/55/food-truck-logo-design-vector-28316655.jpg" alt="Foodies Delight Logo" style="width: 150px; height: auto; margin-bottom: 0px;">
+    <h1>Foodies Delight - Order Your Favorite Food</h1>
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="order.html">Order Food</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <h1>Choose Your Favorite Meal</h1>
+    <div class="order-container">
+      <!-- Food Items -->
+      <div class="food-item">
+        <img src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg" alt="Burger">
+        <h3>Burger</h3>
+        <p>₹150</p>
+        <label for="burger-quantity">Quantity:</label>
+        <input type="number" id="burger-quantity" value="1" min="1">
+        <button onclick="showPopup('Burger', 150, document.getElementById('burger-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/1200px-Pizza-3007395.jpg" alt="Pizza">
+        <h3>Pizza</h3>
+        <p>₹300</p>
+        <label for="pizza-quantity">Quantity:</label>
+        <input type="number" id="pizza-quantity" value="1" min="1">
+        <button onclick="showPopup('Pizza', 300, document.getElementById('pizza-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://images.aws.nestle.recipes/resized/0a0717810b73a1672a029c29788e557b_creamy_alfredo_pasta_long_left_1080_850.jpg" alt="Pasta">
+        <h3>Pasta</h3>
+        <p>₹180</p>
+        <label for="pasta-quantity">Quantity:</label>
+        <input type="number" id="pasta-quantity" value="1" min="1">
+        <button onclick="showPopup('Pasta', 180, document.getElementById('pasta-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHrXGdGEH1S-WhZ_pvKd4beNo5V3crLPR5g&s" alt="Salad">
+        <h3>Salad</h3>
+        <p>₹100</p>
+        <label for="salad-quantity">Quantity:</label>
+        <input type="number" id="salad-quantity" value="1" min="1">
+        <button onclick ="showPopup('Salad', 100, document.getElementById('salad-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://tastesbetterfromscratch.com/wp-content/uploads/2016/03/Grilled-Ham-Cheese-3.jpg" alt="Sandwich">
+        <h3>Sandwich</h3>
+        <p>₹120</p>
+        <label for="sandwich-quantity">Quantity:</label>
+        <input type="number" id="sandwich-quantity" value="1" min="1">
+        <button onclick="showPopup('Sandwich', 120, document.getElementById('sandwich-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://img.freepik.com/premium-photo/freshly-fried-french-fries-with-red-sauce-pouring-top-eye-level_1336356-21297.jpg" alt="Fries">
+        <h3>Fries</h3>
+        <p>₹80</p>
+        <label for="fries-quantity">Quantity:</label>
+        <input type="number" id="fries-quantity" value="1" min="1">
+        <button onclick="showPopup('Fries', 80, document.getElementById('fries-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe9JzKedaxreg3rdmPtMUDh1czZh1oFWpDJQ&s" alt="Noodles">
+        <h3>Noodles</h3>
+        <p>₹200</p>
+        <label for="noodles-quantity">Quantity:</label>
+        <input type="number" id="noodles-quantity" value="1" min="1">
+        <button onclick="showPopup('Noodles', 200, document.getElementById('noodles-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://www.thecookierookie.com/wp-content/uploads/2023/03/featured-instant-pot-chicken-tacos-recipe.jpg" alt="Tacos">
+        <h3>Tacos</h3>
+        <p>₹180</p>
+        <label for="tacos-quantity">Quantity:</label>
+        <input type="number" id="tacos-quantity" value="1" min="1">
+        <button onclick="showPopup('Tacos', 180, document.getElementById('tacos-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://i0.wp.com/blendofspicesbysara.com/wp-content/uploads/2020/10/PXL_20201011_200951855.PORTRAIT-01.jpeg?resize=800%2C840&ssl=1" alt="Biryani">
+        <h3>Biryani</h3>
+        <p>₹250</p>
+        <label for="biryani-quantity">Quantity:</label>
+        <input type="number" id="biryani-quantity" value="1" min="1">
+        <button onclick="showPopup('Biryani', 250, document.getElementById('biryani-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://cdn.britannica.com/52/128652-050-14AD19CA/Maki-zushi.jpg" alt="Sushi">
+        <h3>Sushi</h3>
+        <p>₹300</p>
+        <label for="sushi-quantity">Quantity:</label>
+        <input type="number" id="sushi-quantity" value="1" min="1">
+        <button onclick="showPopup('Sushi', 300, document.getElementById('sushi-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://www.awesomecuisine.com/wp-content/uploads/2009/06/Plain-Dosa.jpg" alt="Dosa">
+        <h3>Dosa</h3>
+        <p>₹120</p>
+        <label for="dosa-quantity">Quantity:</label>
+        <input type="number" id=" dosa-quantity" value="1" min="1">
+        <button onclick="showPopup('Dosa', 120, document.getElementById('dosa-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://www.freshtohome.com/blog/wp-content/uploads/2024/08/RoyalRajputKitchens-Rogan-Josh.png" alt="Curry">
+        <h3>Curry</h3>
+        <p>₹180</p>
+        <label for="curry-quantity">Quantity:</label>
+        <input type="number" id="curry-quantity" value="1" min="1">
+        <button onclick="showPopup('Curry', 180, document.getElementById('curry-quantity').value)">Add to Order</button>
+      </div>
+      <div class="food-item">
+        <img src="https://www.inspiredtaste.net/wp-content/uploads/2024/03/Easy-Fluffy-Pancakes-Recipe-Video.jpg" alt="Pancakes">
+        <h3>Pancakes</h3>
+        <p>₹160</p>
+        <label for="pancakes-quantity">Quantity:</label>
+        <input type="number" id="pancakes-quantity" value="1" min="1">
+        <button onclick="showPopup('Pancakes', 160, document.getElementById('pancakes-quantity').value)">Add to Order</button>
+      </div>
+    </div>
+
+    <!-- Order Summary Box -->
+    <div class="order-summary-box" id="orderSummary">
+      <h2>Your Order</h2>
+      <p>No items added yet.</p>
+    </div>
+
+    <!-- Billing Box -->
+    <div class="billing-box">
+      <h2>Total: ₹<span id="totalAmount">0.00</span></h2>
+    </div>
+
+    <!-- Place Order Button -->
+    <!-- Place Order Button -->
+<button id="placeOrderButton" onclick="placeOrder()">Place Order</button>
+  </main>
+
+  <!-- Popup for Confirmation -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>Confirm Add to Order</h3>
+      <p id="popupItem"></p>
+      <p id="popupPrice"></p>
+      <button onclick="addItemToOrder()">Add to Order</button>
+      <button onclick="closePopup()">Cancel</button>
+    </div>
+  </div>
+  
+  <div class="popup" id="orderConfirmationPopup">
+    <div class="popup-content">
+      <h3>Order Placed Successfully!</h3>
+      <p id="orderNumber"></p>
+      <p>Please collect your order at the food counter.</p>
+      <button onclick="closeConfirmationPopup()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    let orderItems = [];
+    let totalAmount = 0;
+
+    function showPopup(itemName, itemPrice, quantity) {
+      const popup = document.getElementById('popup');
+      const popupItem = document.getElementById('popupItem');
+      const popupPrice = document.getElementById('popupPrice');
+      
+      popupItem.innerText = `${itemName} x ${quantity}`;
+      popupPrice.innerText = `₹${(itemPrice * quantity).toFixed(2)}`;
+      
+      popup.style.display = 'flex';
+      
+      window.selectedItem = { itemName, itemPrice, quantity: parseInt(quantity) };
+    }
+
+    function addItemToOrder() {
+      const { itemName, itemPrice, quantity } = window.selectedItem;
+      const itemTotal = itemPrice * quantity;
+      
+      orderItems.push({ itemName, quantity, itemTotal });
+      totalAmount += itemTotal;
+
+      updateOrderSummary();
+      updateBilling();
+      
+      closePopup();
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'none';
+    }
+
+    function updateOrderSummary() {
+      const orderSummary = document.getElementById('orderSummary');
+      if (orderItems.length === 0) {
+        orderSummary.innerHTML = "<h2>Your Order</h2><p>No items added yet.</p>";
+      } else {
+        let summaryHTML = "<h2>Your Order</h2>";
+        orderItems.forEach((item, index) => {
+          summaryHTML += `<p>${item.itemName} x ${item.quantity} - ₹${item.itemTotal.toFixed(2)} <button onclick="removeItem(${index})">Remove</button></p>`;
+        });
+        summaryHTML += `<p><strong>Total:</strong> ₹${ totalAmount.toFixed(2)}</p>`;
+        orderSummary.innerHTML = summaryHTML;
+      }
+    }
+
+    function updateBilling() {
+      document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
+    }
+
+    function removeItem(index) {
+      totalAmount -= orderItems[index].itemTotal;
+      orderItems.splice(index, 1);
+      updateOrderSummary();
+      updateBilling();
+    }
+
+    function placeOrder() {
+      if (orderItems.length === 0) {
+        alert("Your cart is empty! Please add items to your order.");
+        return;
+      }
+
+      // Generate a random order number
+      const orderNumber = Math.floor(Math.random() * 10000) + 1;
+
+      // Show the confirmation popup
+      const confirmationPopup = document.getElementById('orderConfirmationPopup');
+      const orderNumberDisplay = document.getElementById('orderNumber');
+      orderNumberDisplay.innerText = `Your Order Number: #${orderNumber}`;
+      confirmationPopup.style.display = 'flex';
+
+      // Clear the order summary and reset totals
+      orderItems = [];
+      totalAmount = 0;
+      updateOrderSummary();
+      updateBilling();
+    }
+
+    function closeConfirmationPopup() {
+      const confirmationPopup = document.getElementById('orderConfirmationPopup');
+      confirmationPopup.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

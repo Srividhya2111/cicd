@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  background-color: #333;
+  padding: 10px;
+}
+
+header .menu {
+  list-style: none;
+  padding: 0;
+}
+
+header .menu li {
+  display: inline;
+  margin: 0 15px;
+}
+
+header .menu li a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  margin: 20px;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px auto;
+}
+
+.contact-img {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.contact-details {
+  text-align: left;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+form {
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Foodies Delight</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="order.html">Order Food</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Contact Us</h1>
+    <div class="contact-container">
+      <img src="https://www.cgsinc.com/sites/default/files/styles/product_section_960x800/public/bpo-customer-support-conversation-section.png?itok=am3VR3x-" alt="Customer Support" class="contact-img">
+      <div class="contact-details">
+        <p>Email: <span id="email">support@foodiesdelight.com</span> <button id="copyEmail">Copy</button></p>
+        <p>Phone: <span id="phone">9876578741</span> <button id="copyPhone">Copy</button></p>
+      </div>
+    </div>
+    <h2>Send Us a Message</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br>
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea><br>
+      <button type="submit">Send Message</button>
+    </form>
+  </main>
+  <script>
+  // Copy to Clipboard Functionality
+document.getElementById("copyEmail").addEventListener("click", () => {
+  navigator.clipboard.writeText(document.getElementById("email").textContent);
+  alert("Email address copied to clipboard!");
+});
+
+document.getElementById("copyPhone").addEventListener("click", () => {
+  navigator.clipboard.writeText(document.getElementById("phone").textContent);
+  alert("Phone number copied to clipboard!");
+});
+
+// Form Submission
+document.getElementById("contactForm").addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent actual form submission
+  alert("Thank you for your message! We'll get back to you shortly.");
+  document.getElementById("contactForm").reset(); // Clear the form
+});
+
+  </script>
+</body>
+</html>

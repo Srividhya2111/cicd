@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Foodies Delight</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px;
+    }
+
+    .food-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .food-card:hover {
+      transform: scale(1.05);
+    }
+
+    .food-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .food-card h3 {
+      color: #333;
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
+
+    .food-card p {
+      color: #777;
+      font-size: 1rem;
+      margin: 10px 0;
+    }
+
+    .food-card .ingredients {
+      color: #555;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+  <img src="https://cdn.vectorstock.com/i/1000v/66/55/food-truck-logo-design-vector-28316655.jpg" alt="Foodies Delight Logo" style="width: 150px; height: auto; margin-bottom: 0px;">
+    <h1>Foodies Delight - Our Menu</h1>
+  </header>
+
+  <!-- Menu Container -->
+  <div class="menu-container" id="menu">
+    <!-- JavaScript will populate food items here -->
+  </div>
+
+  <script>
+    // Menu data
+    const menuItems = [
+      {
+        name: "Burger",
+        price: 150,
+        description: "Juicy grilled chicken patty with lettuce, tomato, and special sauce in a sesame seed bun.",
+        ingredients: "Chicken, lettuce, tomato, bun, mayonnaise, cheese",
+        image: "https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
+      },
+      {
+        name: "Pizza",
+        price: 300,
+        description: "Thin crust pizza topped with mozzarella, fresh basil, and tomato sauce.",
+        ingredients: "Dough, mozzarella, tomato sauce, basil, olive oil",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/1200px-Pizza-3007395.jpg"
+      },
+      {
+        name: "Pasta",
+        price: 180,
+        description: "Creamy Alfredo pasta with chicken, mushrooms, and Parmesan cheese.",
+        ingredients: "Pasta, cream, chicken, mushrooms, Parmesan cheese",
+        image: "https://images.aws.nestle.recipes/resized/0a0717810b73a1672a029c29788e557b_creamy_alfredo_pasta_long_left_1080_850.jpg"
+      },
+      {
+        name: "Salad",
+        price: 100,
+        description: "Fresh garden salad with mixed greens, cucumber, eggs, and cherry tomatoes.",
+        ingredients: "Lettuce, cucumber, cherry tomatoes, olive oil, vinegar, eggs",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHrXGdGEH1S-WhZ_pvKd4beNo5V3crLPR5g&s"
+      },
+      {
+        name: "Sandwich",
+        price: 120,
+        description: "Toasted sandwich with ham, cheese, and a spread of mustard.",
+        ingredients: "Bread, ham, cheese, mustard",
+        image: "https://tastesbetterfromscratch.com/wp-content/uploads/2016/03/Grilled-Ham-Cheese-3.jpg"
+      },
+      {
+        name: "Fries",
+        price: 80,
+        description: "Crispy golden French fries served with ketchup.",
+        ingredients: "Potatoes, salt, oil",
+        image: "https://img.freepik.com/premium-photo/freshly-fried-french-fries-with-red-sauce-pouring-top-eye-level_1336356-21297.jpg"
+      },
+      {
+        name: "Noodles",
+        price: 200,
+        description: "Stir-fried noodles with vegetables and soy sauce.",
+        ingredients: "Noodles, vegetables, soy sauce, garlic",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe9JzKedaxreg3rdmPtMUDh1czZh1oFWpDJQ&s"
+      },
+      {
+        name: "Tacos",
+        price: 180,
+        description: "Soft tacos filled with spicy chicken, lettuce, and salsa.",
+        ingredients: "Taco shells, Chicken, lettuce, salsa",
+        image: "https://www.thecookierookie.com/wp-content/uploads/2023/03/featured-instant-pot-chicken-tacos-recipe.jpg"
+      },
+      {
+        name: "Biryani",
+        price: 250,
+        description: "Aromatic rice dish cooked with tender chicken and Indian spices.",
+        ingredients: "Rice, chicken, saffron, spices, yogurt",
+        image: "https://i0.wp.com/blendofspicesbysara.com/wp-content/uploads/2020/10/PXL_20201011_200951855.PORTRAIT-01.jpeg?resize=800%2C840&ssl=1"
+      },
+      {
+        name: "Sushi",
+        price: 300,
+        description: "Fresh sushi rolls with rice, seaweed, and a variety of fillings.",
+        ingredients: "Rice, seaweed, fish, vegetables",
+        image: "https://cdn.britannica.com/52/128652-050-14AD19CA/Maki-zushi.jpg"
+      },
+      {
+        name: "Dosa",
+        price: 120,
+        description: "Crispy South Indian crepe made with rice and lentil batter.",
+        ingredients: "Rice batter, lentils, oil",
+        image: "https://www.awesomecuisine.com/wp-content/uploads/2009/06/Plain-Dosa.jpg"
+      },
+      {
+        name: "Curry",
+        price: 180,
+        description: "Rich and spicy curry made with aromatic Indian spices.",
+        ingredients: "Meat/vegetables, spices, cream, tomatoes",
+        image: "https://www.freshtohome.com/blog/wp-content/uploads/2024/08/RoyalRajputKitchens-Rogan-Josh.png"
+      },
+      {
+        name: "Pancakes",
+        price: 160,
+        description: "Fluffy pancakes served with syrup and butter.",
+        ingredients: "Flour, eggs, milk, butter, syrup",
+        image: "https://www.inspiredtaste.net/wp-content/uploads/2024/03/Easy-Fluffy-Pancakes-Recipe-Video.jpg"
+      }
+    ];
+
+    // Populate menu
+    const menuContainer = document.getElementById('menu');
+
+    menuItems.forEach(item => {
+      const foodCard = document.createElement('div');
+      foodCard.classList.add('food-card');
+
+      foodCard.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name} - ₹${item.price}</h3>
+        <p>${item.description}</p>
+        <p class="ingredients"><strong>Ingredients:</strong> ${item.ingredients}</p>
+      `;
+
+      menuContainer.appendChild(foodCard);
+    });
+  </script>
+
+</body>
+</html>
