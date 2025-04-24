@@ -41,7 +41,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                bat 'docker run -d -p 5000:5000 --name foodtruck-container %IMAGE_NAME%'
+                bat 'docker run -d -p 5000:5000 --name foodtruck %IMAGE_NAME%'
             }
         }
     }
