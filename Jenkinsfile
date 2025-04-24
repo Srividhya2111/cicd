@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "foodtruck-app"
+        IMAGE_NAME = "srividhyanalla/foodtruck-app"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Secure credentials from Jenkins
     }
 
     stages {
@@ -14,17 +15,33 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${IMAGE_NAME}")
-                }
+                bat 'docker build -t foodtruck-app .'
+            }
+        }
+
+        stage('Tag Docker Image') {
+            steps {
+                bat 'docker tag foodtruck-app %IMAGE_NAME%'
+            }
+        }
+
+        stage('Login to DockerHub') {
+            steps {
+                bat '''
+                    echo %DOCKERHUB_CREDENTIALS_PSW% | docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin
+                '''
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                bat 'docker push %IMAGE_NAME%'
             }
         }
 
         stage('Run Container') {
             steps {
-                script {
-                    docker.image("${IMAGE_NAME}").run('-p 5000:5000')
-                }
+                bat 'docker run -d -p 5000:5000 --name foodtruck-container %IMAGE_NAME%'
             }
         }
     }
