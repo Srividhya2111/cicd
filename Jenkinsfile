@@ -3,10 +3,11 @@ pipeline {
 
     environment {
         IMAGE_NAME = "srividhyanalla/foodtruck-app"
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Secure credentials from Jenkins
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
 
     stages {
+
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/Srividhya2111/cicd.git'
@@ -28,7 +29,7 @@ pipeline {
         stage('Login to DockerHub') {
             steps {
                 bat '''
-                    echo %DOCKERHUB_CREDENTIALS_PSW% | docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin
+                echo %DOCKERHUB_CREDENTIALS_PSW% | docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin
                 '''
             }
         }
@@ -39,16 +40,15 @@ pipeline {
             }
         }
 
-stage('Run Container') {
-    steps {
-        bat '''
-        docker stop foodtruck || echo "No container running"
-        docker rm foodtruck || echo "No container to remove"
-        docker run -d -p 8081:80 --name foodtruck srividhyanalla/foodtruck-app
-        '''
-    }
-}
-
+        stage('Run Container') {
+            steps {
+                bat '''
+                docker stop foodtruck || echo "No container running"
+                docker rm foodtruck || echo "No container to remove"
+                docker run -d -p 8081:80 --name foodtruck %IMAGE_NAME%
+                '''
+            }
         }
+
     }
 }
