@@ -45,7 +45,7 @@ pipeline {
                 bat '''
                 docker stop foodtruck || echo "No container running"
                 docker rm foodtruck || echo "No container to remove"
-                docker run -d -p 8081:80 --name foodtruck %IMAGE_NAME%
+                docker run -d -p 8082:80 --name foodtruck %IMAGE_NAME%
                 '''
             }
         }
