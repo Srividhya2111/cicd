@@ -39,10 +39,16 @@ pipeline {
             }
         }
 
-        stage('Run Container') {
-            steps {
-                bat 'docker run -d -p 8081:80 --name foodtruck %IMAGE_NAME%'
-            }
+stage('Run Container') {
+    steps {
+        bat '''
+        docker stop foodtruck || echo "No container running"
+        docker rm foodtruck || echo "No container to remove"
+        docker run -d -p 8081:80 --name foodtruck srividhyanalla/foodtruck-app
+        '''
+    }
+}
+
         }
     }
 }
